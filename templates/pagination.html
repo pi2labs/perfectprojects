@@ -1,0 +1,52 @@
+{% if querySet.has_other_pages %}
+    <div class="pagination">
+        <ul class="container">  
+        {% if querySet.has_previous %}
+            <li><a href="?page={{querySet.previous_page_number}}&search_query={{search_query}}" class="btn page-link" data-page="{{querySet.previous_page_number}}">&#10094; Prev</a></li>
+        {% else %}
+            <li><a href="" class="btn btn--disabled">&#10094; Prev</a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+
+            <!-- we have set paginator to querySet eg projects instead of directly providing all projects so we can get page number with querySet as well -->
+            {% if page == querySet.number %}
+
+            <!-- data-page is a custom attribute in order to get the current page of each click -->
+            <li><a href="?page={{page}}&search_query={{search_query}}" class="btn page-link btn--sub" data-page="{{page}}">{{page}}</a></li>
+            {% else %}
+            <li><a href="?page={{page}}&search_query={{search_query}}" class="btn page-link" data-page="{{page}}">{{page}}</a></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if querySet.has_next %}
+            <li><a href="?page={{querySet.next_page_number}}&search_query={{search_query}}" class="btn page-link" data-page="{{querySet.next_page_number}}">Next &#10095;</a></li>
+        {% else %}
+            <li><a href="" class="btn btn--disabled">Next &#10095;</a></li>
+        {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
+<!-- <script type="text/javascript">
+    let searchForm = document.getElementById('searchForm')
+    let pageLink = document.getElementsByClassName('page-link')
+
+    // Ensure search form exists
+    if (searchForm){
+        for(let i=0; pageLink.length > i; i++){
+            pageLink[i].addEventListener('click', function (e) {
+                e.preventDefault()
+
+                // get the data-page attribute
+                let page = this.dataset.page
+
+                // add hidden search input to form
+                searchForm.innerHTML += '<input value=${page} name="page" hidden/>'
+
+                // submit form
+                searchForm.submit()
+            })
+        }
+    }
+</script> -->
