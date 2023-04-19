@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@17d&3#q%f*@)tm4=380f6i#rl(=7krtfigxkw_(&*!$xrw%-_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'perfectprojects.herokuapp.com']
 
 
 # Application definition
@@ -139,13 +139,23 @@ CACHES = {
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME': 'devsearch',
+        "HOST": 'database-1.c22ds4aldy9y.eu-central-1.rds.amazonaws.com',
+        "USER": 'Nagarjunbs',
+        "PASSWORD": 'Nagaboga!123',
+        "PORT": 5432,
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -185,7 +195,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'prabhu.shanky89@gmail.com'
-EMAIL_HOST_PASSWORD = 'rqvrczchhomruyjx'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 
@@ -212,8 +222,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'AKIA5U6XM3K566RK4A5W'
-AWS_SECRET_ACCESS_KEY = '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'
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('3ayatqPXwc40HdfkXzzTAxNjbaoLt/tV9FMKQDAe')
+AWS_ACCESS_KEY_ID = 'AKIA5U6XM3K52TLKX6W4'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'devsearch-bucket'
 
 AWS_DEFAULT_ACL = None
@@ -221,3 +233,6 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_REGION_NAME = 'ca-central-1'
 AWS_S3_ADDRESSING_STYLE = 'virtual'
 
+# Get current working directory, if we are live then the working directory will start with '/app'
+if os.getcwd() == '/app':
+    DEBUG = False
