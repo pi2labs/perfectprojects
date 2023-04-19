@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -143,9 +146,9 @@ DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
         'NAME': 'devsearch',
-        "HOST": 'database-1.c22ds4aldy9y.eu-central-1.rds.amazonaws.com',
-        "USER": 'Nagarjunbs',
-        "PASSWORD": 'Nagaboga!123',
+        "HOST": os.environ.get('HOST'),
+        "USER": os.environ.get('USER'),
+        "PASSWORD": os.environ.get('PASSWORD'),
         "PORT": 5432,
     }
 }
@@ -194,8 +197,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'prabhu.shanky89@gmail.com'
-EMAIL_HOST_PASSWORD = 'rqvrczchhomruyjx'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 
@@ -222,10 +225,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('3ayatqPXwc40HdfkXzzTAxNjbaoLt/tV9FMKQDAe')
-AWS_ACCESS_KEY_ID = 'AKIA5U6XM3K52TLKX6W4'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'devsearch-bucket'
 
 AWS_DEFAULT_ACL = None
